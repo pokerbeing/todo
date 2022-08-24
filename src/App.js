@@ -14,10 +14,10 @@ const classNames = {                  // constants for css style application
 let id = 0
 
 const Todo = props => (
-  <li class={classNames.TODO_ITEM}>
-    <input type="checkbox" class={classNames.TODO_CHECKBOX} checked={props.todo.checked} onChange={props.onToggle} />
-    <button class={classNames.TODO_DELETE} onClick={props.onDelete}>delete</button>
-    <span class={classNames.TODO_TEXT}>{props.todo.text}</span>
+  <li id={props.todo.id} key={props.todo.id} className={classNames.TODO_ITEM} >
+    <input type="checkbox" className={classNames.TODO_CHECKBOX} checked={props.todo.checked} onChange={props.onToggle} />
+    <button className={classNames.TODO_DELETE} onClick={props.onDelete}>delete</button>
+    <span className={classNames.TODO_TEXT}>{props.todo.text}</span>
   </li>
 )
 
@@ -31,6 +31,7 @@ export default class App extends React.Component {
 
   addTodo() {
     const text = prompt("TODO text please!")
+    console.log(text)
     this.setState({
       todos: [
         ...this.state.todos,
@@ -61,19 +62,19 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-          <div class="container center">
-            <h1 class="center title">My TODO App</h1>
-            <div class="flow-right controls">
+          <div className="container center">
+            <h1 className="center title">My TODO App</h1>
+            <div className="flow-right controls">
               <span>Item count: <span id="item-count">{this.state.todos.length}</span></span>
               <span>Uncompleted count: <span id="unchecked-count">{this.state.todos.filter(todo => !todo.checked).length}</span></span>
             </div>
-            <button id="myBtn" class="button center" onClick={() => this.addTodo()}>New TODO</button>
+            <button id="myBtn" className="button center" onClick={() => this.addTodo()}>New TODO</button>
             <ul id="todo-list">
               {this.state.todos.map(todo => (
                 <Todo
                   onToggle={() => this.toggleTodo(todo.id)}
                   onDelete={() => this.removeTodo(todo.id)}
-                  todo={todo}
+                  todo={todo} key={todo.id}
                 />
               ))}
             </ul>

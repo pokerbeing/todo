@@ -10,7 +10,9 @@ const classNames = {                  // constants for css style application
 
 let id = 0
 
-const Todo = props => (
+// Takes the properties from each today and puts them into the form of HTML
+// Filling in the todo.text and the checkbox and delete button links
+const Todo = props => (  
   <li id={"li-" + props.todo.id} className={classNames.TODO_ITEM} >
     <input type="checkbox" className={classNames.TODO_CHECKBOX} checked={props.todo.checked} onChange={props.onToggle} />
     <button className={classNames.TODO_DELETE} onClick={props.onDelete}>delete</button>
@@ -27,14 +29,16 @@ export default class App extends React.Component {
     }
   }
 
+  // Get input from user, create a todo object and add it to the list of todos
   addTodo() {
     const text = prompt("TODO text please!")
-    console.log(text)
+    // Check to see if user actually entered text
     if (text == '' || text == null) return
-    console.log(text)
     this.setState({
       todos: [
+        // Get existing todos from list
         ...this.state.todos,
+        // Create a new todo object with three properties
         {id: id++, text: text, checked: false},
       ], 
     })

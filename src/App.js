@@ -130,32 +130,32 @@ export default class App extends React.Component {
               </span>
             </span>
           </div>
-
+          {/* Add button for new TODOs */}
+          <button
+            id="myBtn"
+            className="button center"
+            onClick={() => this.openModal()}
+          >
+            New TODO
+          </button>
           <div>
-            <button onClick={() => this.openModal()}>Open Modal</button>
             <Modal
               isOpen={this.state.ModalIsOpen}
               onRequestClose={() => this.closeModal()}
               style={customStyles}
               contentLabel="Example Modal"
             >
-              <button onClick={() => this.closeModal()}>close</button>
-              <div>I am a modal</div>
+              <button onClick={() => this.closeModal()}>cancel</button>
               <form>
-                <p>Enter TODO below:</p>
+                <p>Type TODO below, press enter to save</p>
                 <input
                   type="text"
                   id="prompt"
-                  size="30"
+                  size="40"
                   onChange={(event) => this.updateResponse(event)}
                   onKeyPress={(event) => this.getKeyPress(event)}
                   value={this.state.response}
                 ></input>
-                <p>{this.state.ModalIsOpen.toString()}</p>{" "}
-                <button>tab navigation</button>
-                <button>stays</button>
-                <button>inside</button>
-                <button>the modal</button>
               </form>
             </Modal>
           </div>

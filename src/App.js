@@ -27,6 +27,8 @@ Modal.setAppElement("#root");
 
 let id = 0;
 
+// Takes the properties from each today and puts them into the form of HTML
+// Filling in the todo.text and the checkbox and delete button links
 const Todo = (props) => (
   <li className={classNames.TODO_ITEM}>
     <input
@@ -42,48 +44,55 @@ const Todo = (props) => (
   </li>
 );
 
+// extend the App class and make it the deafault export
 export default class App extends React.Component {
   constructor() {
-    super();
+    super(); // Reference the component parent class
     this.state = {
-      todos: [],
+      // Add a state
+      todos: [], // Create an empty list to hold todos
       response: "",
       ModalIsOpen: false
     };
   }
-  // Get the button that opens the modal
-  static btn = document.getElementById("myBtn");
-  // Get the modal
-  static modal = document.getElementById("myModal");
 
+  // Set model open
   openModal() {
     this.setState({
       ModalIsOpen: true
     });
   }
 
+  // Set model closed
   closeModal() {
     this.setState({
       ModalIsOpen: false
     });
   }
 
+  // Get response from state, create a todo object and add it to the list of todos
   addTodo() {
-    // const text = prompt("TODO text please!");
+    if (this.state.response === "" || this.state.response === null) {
+      return;
+    }
     this.setState({
       todos: [
+        // Get existing todos from list
         ...this.state.todos,
+        // Create a new todo object with three properties and increment id
         { id: id++, text: this.state.response, checked: false }
       ]
     });
   }
 
+  // Save user response to state as they ype
   updateResponse(event) {
     this.setState({
       response: event.target.value
     });
   }
 
+  // When user presses enter key, add Todo obj, clear response and close modal
   getKeyPress(event) {
     if (event.key === "Enter") {
       this.addTodo();
@@ -95,17 +104,21 @@ export default class App extends React.Component {
       return;
     }
   }
+
+  // Remove todo from todo list by filtering it out
   removeTodo(id) {
     this.setState({
       todos: this.state.todos.filter((todo) => todo.id !== id)
     });
   }
 
+  // Change the checked property to the opposite of its current value
   toggleTodo(id) {
     this.setState({
       todos: this.state.todos.map((todo) => {
-        if (todo.id !== id) return todo;
+        if (todo.id !== id) return todo; // if not this todo, just add it back to list
         return {
+          // else change the checked status and add it back to list
           id: todo.id,
           text: todo.text,
           checked: !todo.checked
@@ -114,16 +127,20 @@ export default class App extends React.Component {
     });
   }
 
+  // This method renders the webpage
   render() {
     return (
       <div>
         <div className="container center">
           <h1 className="center title">My TODO App</h1>
           <div className="flow-right controls">
+            {/* Add two counters */}
+            {/* Count items by getting length of todo list */}
             <span>
               Item count: <span id="item-count">{this.state.todos.length}</span>
             </span>
             <span>
+              {/* Get uncommpleted count by filtering out checked */}
               Uncompleted count:{" "}
               <span id="unchecked-count">
                 {this.state.todos.filter((todo) => !todo.checked).length}
@@ -163,6 +180,9 @@ export default class App extends React.Component {
               </form>
             </Modal>
           </div>
+          {/* This section creates the TODO list items */}
+          {/* By reading each todo in todo list and applying the HTML specific to the <Todo> */}
+          {/* Adds links for if checkbox or delete button is clcked */}
           <div>
             <ul id="todo-list">
               {this.state.todos.map((todo) => (

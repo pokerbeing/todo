@@ -145,9 +145,13 @@ export default class App extends React.Component {
               style={customStyles}
               contentLabel="Example Modal"
             >
-              <button onClick={() => this.closeModal()}>cancel</button>
+              <span className="close" onClick={() => this.closeModal()}>
+                &times;
+              </span>
               <form>
-                <p>Type TODO below, press enter to save</p>
+                <p>
+                  Type below, and press enter to save ToDo. Click x to cancel
+                </p>
                 <input
                   type="text"
                   id="prompt"

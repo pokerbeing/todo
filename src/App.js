@@ -10,7 +10,7 @@ const classNames = {                  // constants for css style application
 
 let id = 0
 
-// Takes the properties from each today and puts them into the form of HTML
+// Takes the properties from each todo and puts them into the form of HTML
 // Filling in the todo.text and the checkbox and delete button links
 const Todo = props => (  
   <li id={"li-" + props.todo.id} className={classNames.TODO_ITEM} >
@@ -20,7 +20,7 @@ const Todo = props => (
   </li>
 )
 
-// extend the App class and make it the deafault export
+// extend the App class and make it the default export
 export default class App extends React.Component {
   constructor() {
     super()                 // Reference the component parent class
